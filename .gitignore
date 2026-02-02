@@ -1,0 +1,9 @@
+# Ignore dependencies
+node_modules/
+
+# Ignore sensitive credentials
+.env
+config/db-credentials.js
+
+# Ignore system files
+.DS_Store
