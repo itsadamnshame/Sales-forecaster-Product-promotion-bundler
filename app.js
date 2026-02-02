@@ -1,25 +1,22 @@
-const http = require('http');
-const fs = require('fs');
-const port = 3000;
+const express = require('express');
+const session = require('express-session');
+const sessionRouter = require('./session_back');
+const app = express();
+PORT = 3000;
 
-const server = http.createServer(function(req, res){
-    res.writeHead(200, { 'Content-Type': 'text/html' })
-    fs.readFile('login.html', function(error, data){
-        if(error){
-            res.writeHead(404);
-            res.write("Error: File Not Found");
+app.use(express.json());
+app.use(
+    session({
+        secret: 'idk',
+        saveUninitialized: false,
+        resave: false,
+        cookie: {
+            maxAge: 60000 * 60
         }
-        else{
-            res.write(data);
-        }
-    });
-});
+}));
+app.use('/', sessionRouter);
 
-server.listen(port, function(error){
-    if(error){
-        console.log("Something went wrong", error);
-    }
-    else{
-        console.log("Server is listening on port " + port);
-    }
+app.use(express.static('public'));
+app.listen(PORT, () => {
+    console.log(`Server is live at http://localhost:${PORT}`);
 });

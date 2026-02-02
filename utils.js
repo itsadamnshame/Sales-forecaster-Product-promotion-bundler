@@ -1,13 +1,12 @@
 upload = document.getElementById('upload');
 
-const dataset = (fileName, dataFile) => {
-    console.log(fileName, dataFile)
-}
-
-upload.onsubmit = (e) => {
+upload.onsubmit = async (e) => {
     e.preventDefault();
     const data =  new FormData(e.target);
-    let fileName = data.get('filename');
-    let dataFile = data.get('datafile');
-    dataset(fileName, dataFile);
+    const response = await fetch('http://localhost:3000/upload', {
+        method: 'POST',
+        body: data
+    });
+    const result = await response.json();
+    console.log(result.message);
 }

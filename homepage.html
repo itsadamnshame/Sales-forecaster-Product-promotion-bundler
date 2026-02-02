@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-</head>
-<body>
-    <a href="upload.html">Upload a dataset</a>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Homepage</title>
+    </head>
+    <body>
+        <button id="navi" class="navi" data-page="upload.html">Upload a dataset</button>
+        <p id="demo"></p>
+
+        <script>
+            const id = sessionStorage.getItem('id');
+            document.getElementById("demo").innerHTML = "<h2>Hello " + id + " World</h2>";
+        </script>
+        <button id="logout">Logout</button>
+        <script src="session.js"></script>
+    </body>
 </html>

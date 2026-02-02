@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/itsadamnshame/Sales-forecaster-Product-promotion-bundler/issues"
   },
-  "homepage": "https://github.com/itsadamnshame/Sales-forecaster-Product-promotion-bundler#readme"
+  "homepage": "https://github.com/itsadamnshame/Sales-forecaster-Product-promotion-bundler#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-session": "^1.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
 }

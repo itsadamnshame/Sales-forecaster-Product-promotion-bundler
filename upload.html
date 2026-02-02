@@ -5,7 +5,7 @@
     </head>
     <body>
         <div class='upload'>
-            <form id="upload" enctype='multipart/form-data'>
+            <form id="upload" method="POST" enctype='multipart/form-data'>
                 <label for='filename'>File name:</label>
                 <input type='text' name='filename' id="filename" required><br>
                 <label for='data file'>Select Excel File:</label>
@@ -13,6 +13,8 @@
                 <button type='submit' name='upload button' id="upload data">Upload</button>
             </form>
         </div>
+        <button id="navi" class="navi" data-page="homepage.html">Go back</button>
         <script src="utils.js"></script>
+        <script src="session.js"></script>
     </body>
 </html>
