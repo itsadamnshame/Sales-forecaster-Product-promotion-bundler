@@ -9,7 +9,7 @@ config/db-credentials.js
 uploads/
 
 # Ignore Py Cache
-__pycache__
+__pycache__/
 
 # Ignore system files
 .DS_Store
