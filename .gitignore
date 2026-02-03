@@ -8,5 +8,8 @@ config/db-credentials.js
 # Ignore uploads folder
 uploads/
 
+# Ignore Py Cache
+__pycache__
+
 # Ignore system files
 .DS_Store
