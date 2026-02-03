@@ -15,7 +15,8 @@ router.post('/login', (req, res) => {
     if (uname === 'user' && pass === '1234') {
         req.session.userId = 1;
         res.json({ message: "Login Successful" });
-    } else {
+    } 
+    else {
         res.status(401).json({ error: "Invalid credentials" });
     }
 });

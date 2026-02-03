@@ -20,7 +20,9 @@
   "homepage": "https://github.com/itsadamnshame/Sales-forecaster-Product-promotion-bundler#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "express-session": "^1.19.0"
+    "express-session": "^1.19.0",
+    "multer": "^2.0.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
