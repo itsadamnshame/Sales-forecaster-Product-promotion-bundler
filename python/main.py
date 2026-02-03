@@ -1,12 +1,19 @@
+# .py imports
+from loader import loadNclean
+from plotting import dataPlotter
+
+# library imports
 from pathlib import Path
-from loader import load_and_clean
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 
-file_path = Path(__file__).resolve()
+file_path = Path(__file__).parent.resolve()
 file_folder = str(file_path.parent)
 
 dataset = '1770083555351-Sales_2022 to 2025.xlsx'
-dirDataSet = (file_folder + '/uploads/' + dataset)
+dirDataSet = str(file_folder + '/uploads/' + dataset)
 
-data = load_and_clean(dirDataSet)
+data = loadNclean(dirDataSet)
 ts_data = data['Quantity'].resample('D').sum().fillna(0)
+plot_df = ts_data.reset_index()
+
+dataPlotter(df=plot_df, x='OrderDate', y='Quantity')
