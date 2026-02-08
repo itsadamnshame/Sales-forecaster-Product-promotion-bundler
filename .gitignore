@@ -12,7 +12,7 @@ uploads/
 __pycache__/
 
 # Ignore forecast files
-forecast_files/
+py_export/
 
 # Ignore system files
 .DS_Store

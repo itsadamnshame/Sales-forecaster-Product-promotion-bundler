@@ -1,9 +1,26 @@
 .header {
     display: flex;
-    justify-content: flex-start;
-    color: rgb(46, 136, 215);
+    justify-content: flex-end;
+    background-color: aquamarine;
+    height: 100px;
 }
 
-.idk {
-    color: white;
+.header #logout {
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.sidebar {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 120px;
+    height: 1000px;
+    background-color: blueviolet;
+}
+
+.summary-box{
+    display: flex;
 }

@@ -14,4 +14,6 @@ data = loadNclean(str(dirDataSet))
 ts_data = data['Quantity'].resample('D').sum().fillna(0)
 plot_df = ts_data.reset_index()
 
-dataPlotter(df=plot_df, x='OrderDate', y='Quantity')
+monthly_data = data['Quantity'].resample('MS').sum().fillna(0).reset_index()
+
+dataPlotter(df=plot_df, x='OrderDate', y='Quantity', monthly_df=monthly_data)

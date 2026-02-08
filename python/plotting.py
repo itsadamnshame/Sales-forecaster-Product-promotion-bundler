@@ -3,9 +3,10 @@ import plotly.express as px
 from pathlib import Path
 
 fileRoot = Path(__file__).parent.parent
-exportDir = fileRoot / 'forecast_files' / 'temp_graph.html'
+exportDir = fileRoot / 'py_export' / 'temp_graph.html'
 
 def exportGraph(fig, filename=exportDir):
+    filename.parent.mkdir(parents=True, exist_ok=True)
     fig.write_html(filename, full_html=False, include_plotlyjs='cdn')
 
 def dataPlotter(df: pd.DataFrame, x: str, y: str) -> None:
