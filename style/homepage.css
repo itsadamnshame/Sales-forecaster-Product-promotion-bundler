@@ -1,0 +1,9 @@
+.header {
+    display: flex;
+    justify-content: flex-start;
+    color: rgb(46, 136, 215);
+}
+
+.idk {
+    color: white;
+}

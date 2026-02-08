@@ -33,16 +33,3 @@ if (logout) {
         }
     }
 }
-
-const navi = document.querySelectorAll('.navi');
-if (navi) {
-    navi.forEach(button => {
-        button.onclick = async () => {
-            const targetPage = button.getAttribute('data-page');
-            if (targetPage) {
-                window.location.href = targetPage;
-            }
-        };
-    });
-}
-

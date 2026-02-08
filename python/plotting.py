@@ -9,14 +9,17 @@ def exportGraph(fig, filename=exportDir):
     fig.write_html(filename, full_html=False, include_plotlyjs='cdn')
 
 def dataPlotter(df: pd.DataFrame, x: str, y: str) -> None:
-    # Use the x and y parameters provided in the function call
+    count = len(df)
+    
+    # 2. Use the x and y parameters provided in the function call
     fig = px.line(df, x=x, y=y, labels={x: 'Date', y: 'Units Sold'})
     
+    # 3. Add the count to the title using an f-string
     fig.update_layout(
         template='simple_white', 
         font=dict(size=18), 
-        title_text='Sales Forecast Data',
-        width=800, # Increased slightly for better visibility
+        title_text=f'Sales Forecast Data (Total Points: {count})', # Updated Title
+        width=800, 
         title_x=0.5, 
         height=400
     )

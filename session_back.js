@@ -39,8 +39,8 @@ router.get('/upload.html', protect, (req, res) => {
     res.sendFile(process.cwd() + '/upload.html'); 
 });
 
-router.get('/forecast.html', protect, (req, res) => {
-    res.sendFile(process.cwd() + '/forecast.html'); 
+router.get('/forecaster.html', protect, (req, res) => {
+    res.sendFile(process.cwd() + '/forecaster.html'); 
 });
 
 router.get('/market_analyze.html', protect, (req, res) => {
