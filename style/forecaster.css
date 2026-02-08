@@ -1,0 +1,22 @@
+/* Only layout grids and specific elements remain */
+.forecast-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px; /* Standard gap */
+}
+
+.model-toggles { display: flex; gap: 10px; }
+
+.toggle-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #358efb;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+.toggle-btn.active { background: #358efb; }
+
+.yoy-section { margin-top: 30px; width: 100%; }
+.yoy-section .chart-card { border-top: 4px solid #358efb; }

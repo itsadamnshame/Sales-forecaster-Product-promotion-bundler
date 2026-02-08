@@ -33,3 +33,24 @@ if (logout) {
         }
     }
 }
+
+const menuBtn = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('sidebar');
+const closeBtn = document.getElementById('close-sidebar');
+const overlay = document.getElementById('overlay');
+
+// Ensure ALL elements exist before adding listeners
+if (menuBtn && sidebar && closeBtn && overlay) {
+    menuBtn.onclick = () => {
+        sidebar.classList.add('open');
+        overlay.classList.add('visible');
+    };
+
+    // Close logic for both the 'X' button and the dark overlay
+    [closeBtn, overlay].forEach(btn => {
+        btn.onclick = () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        };
+    });
+}

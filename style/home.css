@@ -1,0 +1,33 @@
+/* Dashboard Specific Containers */
+.summary-container {
+    padding: 2rem 3rem 0 3rem;
+}
+
+.summary-title {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.summary-title::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    background-color: #358efb;
+    margin-top: 8px;
+    border-radius: 2px;
+}
+
+/* Grid for the KPI Boxes */
+.summary-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0 3rem 0;
+    width: 100%;
+}

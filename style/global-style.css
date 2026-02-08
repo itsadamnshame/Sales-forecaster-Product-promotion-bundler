@@ -1,0 +1,180 @@
+/* global-style.css - REPLACES EVERYTHING */
+
+/* 1. Global Layout & Scrolling Fix */
+body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 1fr; /* Fixed header height, rest is content */
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(17, 44, 79);
+    font-family: sans-serif;
+    overflow: hidden; /* Prevent body scroll, we scroll main-content instead */
+}
+
+/* 2. Header (Fixed at top) */
+.header {
+    z-index: 10;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    height: 70px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #112c4f;
+}
+
+.header-left p { margin: 0; font-weight: bold; }
+.user-name { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+
+#logout {
+    background-color: #358efb;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#menu-toggle { background: none; border: none; font-size: 1.5rem; cursor: pointer; margin-right: 15px; }
+
+/* 3. Sidebar (No changes needed, standard) */
+.sidebar {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background-color: #1a1a1a;
+    color: white;
+    transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 9999;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+}
+.sidebar.open { left: 0 !important; }
+.sidebar-header { padding: 20px; display: flex; justify-content: flex-end; border-bottom: 1px solid #333; }
+#close-sidebar { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
+.sidebar-nav ul { list-style: none; padding: 0; margin: 20px 0; }
+.sidebar-nav a { display: block; padding: 15px 25px; color: #ccc; text-decoration: none; font-weight: 500; transition: all 0.2s; }
+.sidebar-nav a:hover { background-color: #358efb; color: white; padding-left: 35px; }
+.overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); display: none; z-index: 9998; }
+.overlay.visible { display: block; }
+
+/* 4. MAIN CONTENT AREA (The Fix for Spacing & Scrolling) */
+.main-content {
+    overflow-y: auto; /* Enables scrolling for content only */
+    padding: 0;
+    height: 100%;
+}
+
+/* This targets the container on EVERY page (Forecaster, Market, Influence) */
+.main-content > div {
+    padding: 2rem 3rem 4rem 3rem; /* Consistent padding with space at bottom for scrolling */
+    max-width: 1600px; /* Prevents cards from getting too wide on huge screens */
+    margin: 0 auto;
+}
+
+/* 5. Standard Page Titles */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Aligns buttons to the bottom of the title */
+    margin-bottom: 30px; /* EXACT spacing between title and white boxes */
+    height: 50px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* Optional guide line, remove if unwanted */
+    padding-bottom: 10px;
+}
+
+.summary-title {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+}
+
+/* The Blue Underline - Standardized */
+.summary-title::after {
+    content: "";
+    display: block;
+    width: 100%; /* Matches text width */
+    height: 4px;
+    background-color: #358efb;
+    position: absolute;
+    bottom: -14px; /* Exact distance from text */
+    left: 0;
+    border-radius: 2px;
+}
+
+/* 6. Standard White Cards (Resetting Padding) */
+.chart-card, .rules-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden; /* Ensures headers align perfectly */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Internal Card Header */
+.card-header-internal {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+}
+.card-header-internal h3 { margin: 0; font-size: 1.1rem; color: #112c4f; font-weight: 700; }
+.card-header-internal p { margin: 5px 0 0 0; font-size: 0.85rem; color: #666; }
+
+/* Internal Card Body */
+.card-body-internal, .rules-table-container, .canvas-container {
+    padding: 2rem;
+    flex-grow: 1;
+}
+
+/* 7. Right Panel Mini-Boxes */
+.mini-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 120px; /* Force consistent height */
+    margin-bottom: 20px;
+}
+.mini-box .number { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; }
+.mini-box .title { font-size: 0.85rem; opacity: 0.8; }
+
+/* The specific "Blue Border" fix */
+.highlight {
+    border: 1px solid #358efb !important; /* Forces consistent thin blue border on all pages */
+    background: rgba(53, 142, 251, 0.1);
+}
+
+/* Insight Box (Bottom Right) */
+.insight-box {
+    background: rgba(53, 142, 251, 0.1);
+    border-left: 4px solid #358efb;
+    padding: 1.5rem;
+    border-radius: 0 8px 8px 0;
+    color: #fff;
+}
+.insight-box h4 { margin: 0 0 10px 0; color: #358efb; }
+.insight-box p { margin: 0; font-size: 0.9rem; line-height: 1.5; }

@@ -43,8 +43,12 @@ router.get('/forecaster.html', protect, (req, res) => {
     res.sendFile(process.cwd() + '/forecaster.html'); 
 });
 
-router.get('/market_analyze.html', protect, (req, res) => {
-    res.sendFile(process.cwd() + '/market_analyze.html'); 
+router.get('/marketer.html', protect, (req, res) => {
+    res.sendFile(process.cwd() + '/marketer.html'); 
+});
+
+router.get('/influence.html', protect, (req, res) => {
+    res.sendFile(process.cwd() + '/influence.html'); 
 });
 
 module.exports = router;

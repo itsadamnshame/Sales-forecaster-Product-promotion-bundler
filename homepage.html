@@ -4,35 +4,54 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Homepage</title>
-        <link rel="stylesheet" href="style/homepage.css">
+        <link rel="stylesheet" href="style/global-style.css">
+        <link rel="stylesheet" href="style/home.css">
     </head>
     <body>
         <div class="header">
-            <button id="logout">Logout</button>
+            <div class="header-left">
+                <button id="menu-toggle">☰</button>
+                <p>PROGRAM NAME IDK</p>
+            </div>
+            <div class="header-right">
+                <span class="user-name">EMPLOYEE NAME (ADMIN)</span>
+                <button id="logout">Logout</button>
+            </div>
         </div>
-        <div class="sidebar">
-            <table>
-                <a href="forecaster.html">Forecaster</a><br>
-                <a href="market_analyze.html">Market Analysis</a>
-            </table>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button id="close-sidebar">×</button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="homepage.html">Dashboard Home</a></li>
+                    <li><a href="forecaster.html">Forecaster (Prophet/SARIMA)</a></li>
+                    <li><a href="market_analyze.html">Market Analysis (Apriori)</a></li>
+                    <li><a href="influence.html">Influence Factors (Random Forest)</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="summary-box">
-            <p class="forecasted">
-                10000
-                Total Forecasted Sales (February)
-            </p>
-            <p class="accuracy">
-                97.34%
-                Model Accuracy
-            </p>
-            <p class="bundle">
-                item 101001 & item 107037
-                Top Selling Pair (Apriori)
-            </p>
-            <p class="seller">
-                item 101001
-                Primary Sales Driver (Random Forest)
-            </p>
+        <div id="overlay" class="overlay"></div>
+        <div class="summary-container">
+            <h2 class="summary-title">MODELS' SUMMARIES</h2>
+            <div class="summary-box">
+                <p class="mini-box" id="forecasted">
+                    <span class='number'>10000</span>
+                    <span class='title'>Total Forecasted Sales (FEBUARY)</span>
+                </p>
+                <p class="mini-box" id="accuracy">
+                    <span class='number'>97.34%</span>
+                    <span class='title'>Model Accuracy</span>
+                </p>
+                <p class="mini-box" id="bundle">
+                    <span class='number'>item 101001 & item 107037</span>
+                    <span class='title'>Top Selling Pair (Apriori)</span>
+                </p>
+                <p class="mini-box" id="seller">
+                    <span class='number'>item 101001</span>
+                    <span class='title'>Primary Sales Driver (Random Forest)</span>
+                </p>
+            </div>
         </div>
         <template><a href="upload.html">Upload a dataset</a></template>
         <!-- <p id="demo"></p>

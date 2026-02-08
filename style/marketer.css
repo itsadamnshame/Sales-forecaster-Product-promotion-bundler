@@ -1,0 +1,15 @@
+.analysis-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px;
+}
+
+.rules-table { width: 100%; border-collapse: collapse; }
+.rules-table th { text-align: left; padding: 12px; border-bottom: 2px solid #eee; font-size: 0.9rem; color: #666; }
+.rules-table td { padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+
+.strength-high { color: #27ae60; font-weight: bold; }
+.lift-badge { padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+.lift-badge.high { background: rgba(39, 174, 96, 0.1); color: #27ae60; border: 1px solid #27ae60; }
+.confidence-bar { height: 8px; background: #27ae60; border-radius: 4px; }
+.confidence-bar-container { display: flex; align-items: center; gap: 10px; }

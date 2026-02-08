@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis</title>
+    <link rel="stylesheet" href="style/global-style.css">
+    <link rel="stylesheet" href="style/marketer.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <button id="menu-toggle">☰</button>
+            <p>SALES FORECASTER</p>
+        </div>
+        <div class="header-right">
+            <span class="user-name">EMPLOYEE NAME (ADMIN)</span>
+            <button id="logout">Logout</button>
+        </div>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button id="close-sidebar">×</button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="homepage.html">Dashboard Home</a></li>
+                <li><a href="forecaster.html">Forecaster (Prophet/SARIMA)</a></li>
+                <li><a href="market_analyze.html">Market Analysis (Apriori)</a></li>
+                <li><a href="influence.html">Influence Factors (Random Forest)</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <div class="main-content">
+        <div class="analysis-container">
+            <div class="page-header">
+                <h2 class="summary-title">MARKET BASKET ANALYSIS</h2>
+            </div>
+            
+            <div class="analysis-grid">
+                <div class="rules-card">
+                    <div class="card-header-internal">
+                        <div>
+                            <h3>Top Product Associations</h3>
+                            <p>Based on 48 months of transaction history</p>
+                        </div>
+                    </div>
+                    <div class="card-body-internal">
+                        <table class="rules-table">
+                            <thead>
+                                <tr>
+                                    <th>Primary Item</th>
+                                    <th>Associated Item</th>
+                                    <th>Confidence</th>
+                                    <th>Lift</th>
+                                </tr>
+                            </thead>
+                            <tbody id="apriori-data">
+                                <tr>
+                                    <td>Item 101001</td>
+                                    <td>Item 107037</td>
+                                    <td class="strength-high">84.2%</td>
+                                    <td>2.4x</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <div class="side-panel">
+                    <div class="mini-box highlight">
+                        <span class="number">12</span>
+                        <span class="title">Strong Bundles Found</span>
+                    </div>
+                    <div class="insight-box">
+                        <h4>Marketing Strategy</h4>
+                        <p>Consider placing <strong>Item 101001</strong> and <strong>Item 107037</strong> on the same shelf to increase cross-sales.</p>
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </div>
+    <script src="session.js"></script>
+</body>
+</html>

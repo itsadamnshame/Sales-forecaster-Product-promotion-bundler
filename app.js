@@ -19,7 +19,7 @@ app.use(
 }));
 app.use('/', sessionRouter);
 
-folders = ['uploads', 'forecast_files'];
+folders = ['uploads'];
 
 for(i=0; i<folders.length; i++){
     const uploadDir = path.join(__dirname, folders[i]);

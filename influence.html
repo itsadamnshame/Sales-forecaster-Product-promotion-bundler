@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forecaster</title>
+    <title>Random Forest</title>
     <link rel="stylesheet" href="style/global-style.css">
-    <link rel="stylesheet" href="style/forecaster.css">
+    <link rel="stylesheet" href="style/influence.css">
 </head>
 <body>
     <div class="header">
         <div class="header-left">
             <button id="menu-toggle">☰</button>
-            <p>SALES FORECASTER</p>
+            <p>INFLUENCE FACTORS</p>
         </div>
         <div class="header-right">
             <span class="user-name">EMPLOYEE NAME (ADMIN)</span>
@@ -34,54 +34,39 @@
     <div id="overlay" class="overlay"></div>
 
     <div class="main-content">
-        <div class="forecaster-container">
+        <div class="influence-container">
             <div class="page-header">
-                <h2 class="summary-title">TIME-SERIES COMPARISON</h2>
-                <div class="model-toggles">
-                    <button class="toggle-btn active" id="btn-sarima">SARIMA</button>
-                    <button class="toggle-btn active" id="btn-prophet">Prophet</button>
-                </div>
+                <h2 class="summary-title">SALES INFLUENCE FACTORS</h2>
             </div>
 
-            <div class="forecast-grid">
+            <div class="analysis-grid">
                 <div class="chart-card">
                     <div class="card-header-internal">
                         <div>
-                            <h3>7-Day Sales Projection</h3>
-                            <p class="date-range">Feb 08 - Feb 15, 2026</p>
+                            <h3>Key Sales Drivers</h3>
+                            <p>Impact weight based on Random Forest Classifier</p>
                         </div>
                     </div>
                     <div class="card-body-internal">
-                        <canvas id="forecastChart"></canvas>
+                        <canvas id="importanceChart"></canvas>
                     </div>
                 </div>
-                <div class="metrics-panel">
+
+                <div class="side-panel">
                     <div class="mini-box highlight">
-                        <span class="number">96.8%</span>
-                        <span class="title">Prophet Accuracy (Winning Model)</span>
+                        <span class="number">Price</span>
+                        <span class="title">Top Driver Identified</span>
                     </div>
+                    
                     <div class="insight-box">
                         <h4>Model Insight</h4>
-                        <p>Prophet is currently outperforming SARIMA by <strong>2.6%</strong> due to better handling of the upcoming holiday weekend.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="yoy-section">
-                <div class="chart-card">
-                    <div class="card-header-internal">
-                        <div>
-                            <h3>Year-over-Year Performance</h3>
-                            <p class="date-range">February 2026 vs. February 2025</p>
-                        </div>
-                    </div>
-                    <div class="card-body-internal">
-                        <canvas id="yoyChart"></canvas>
+                        <p>Your 4-year data shows that <strong>Unit Price</strong> changes have a 45% higher impact on sales volume than <strong>Seasonal Holidays</strong>.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="session.js"></script>
+    <script src="influence-logic.js"></script>
 </body>
 </html>
