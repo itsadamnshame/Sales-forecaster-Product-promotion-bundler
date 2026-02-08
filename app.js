@@ -19,11 +19,15 @@ app.use(
 }));
 app.use('/', sessionRouter);
 
-const uploadDir = path.join(__dirname, 'uploads');
+folders = ['uploads', 'forecast_files'];
 
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir);
-    console.log('Successfully created the /uploads folder.');
+for(i=0; i<folders.length; i++){
+    const uploadDir = path.join(__dirname, folders[i]);
+
+    if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir);
+        console.log('Successfully created the /' + folders[i] + ' folder.');
+    }
 }
 
 app.use('/', utilRouter);

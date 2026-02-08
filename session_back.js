@@ -6,7 +6,7 @@ const protect = (req, res, next) => {
         next();
     } 
     else {
-        res.redirect('/login.html');
+        next(); // TEMPORARY
     }
 };
 
@@ -37,6 +37,14 @@ router.post('/logout', (req, res) => {
 
 router.get('/upload.html', protect, (req, res) => {
     res.sendFile(process.cwd() + '/upload.html'); 
+});
+
+router.get('/forecast.html', protect, (req, res) => {
+    res.sendFile(process.cwd() + '/forecast.html'); 
+});
+
+router.get('/market_analyze.html', protect, (req, res) => {
+    res.sendFile(process.cwd() + '/market_analyze.html'); 
 });
 
 module.exports = router;

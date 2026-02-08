@@ -7,12 +7,11 @@ from pathlib import Path
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 file_path = Path(__file__).parent.resolve()
-file_folder = str(file_path.parent)
 
-dataset = '1770083555351-Sales_2022 to 2025.xlsx'
-dirDataSet = str(file_folder + '/uploads/' + dataset)
-
-data = loadNclean(dirDataSet)
+dataset = '1770129962785-Sales_2022 to 2025.xlsx'
+dirDataSet = file_path.parent / 'uploads' / dataset
+print(dirDataSet)
+data = loadNclean(str(dirDataSet))
 ts_data = data['Quantity'].resample('D').sum().fillna(0)
 plot_df = ts_data.reset_index()
 

@@ -11,5 +11,8 @@ uploads/
 # Ignore Py Cache
 __pycache__/
 
+# Ignore forecast files
+forecast_files/
+
 # Ignore system files
 .DS_Store

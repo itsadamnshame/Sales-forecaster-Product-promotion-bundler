@@ -1,7 +1,11 @@
 import pandas as pd
 import plotly.express as px
+from pathlib import Path
 
-def exportGraph(fig, filename="temp_graph.html"):
+fileRoot = Path(__file__).parent.parent
+exportDir = fileRoot / 'forecast_files' / 'temp_graph.html'
+
+def exportGraph(fig, filename=exportDir):
     fig.write_html(filename, full_html=False, include_plotlyjs='cdn')
 
 def dataPlotter(df: pd.DataFrame, x: str, y: str) -> None:
