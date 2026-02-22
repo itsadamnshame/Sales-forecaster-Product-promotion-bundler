@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Forest</title>
-    <link rel="stylesheet" href="style/global-style.css">
-    <link rel="stylesheet" href="style/influence.css">
+    <title>Random Forest - Influence Factors</title>
+    <link rel="stylesheet" href="../style/global-style.css">
+    <link rel="stylesheet" href="../style/influence.css">
 </head>
 <body>
     <div class="header">
@@ -48,25 +48,30 @@
                         </div>
                     </div>
                     <div class="card-body-internal">
-                        <canvas id="importanceChart"></canvas>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="importanceChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
                 <div class="side-panel">
                     <div class="mini-box highlight">
-                        <span class="number">Price</span>
+                        <span class="number" id="top-influence-driver" style="font-size: 1.8em; color: #2ecc71;">Analyzing...</span>
                         <span class="title">Top Driver Identified</span>
                     </div>
                     
                     <div class="insight-box">
                         <h4>Model Insight</h4>
-                        <p>Your 4-year data shows that <strong>Unit Price</strong> changes have a 45% higher impact on sales volume than <strong>Seasonal Holidays</strong>.</p>
+                        <p id="dynamic-insight-text">Analyzing your historical data to determine the highest impact variables...</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="session.js"></script>
-    <script src="influence-logic.js"></script>
+    <script src="/session.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="js/influence-logic.js"></script>
 </body>
 </html>

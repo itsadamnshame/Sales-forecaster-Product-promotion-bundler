@@ -20,3 +20,26 @@
 
 .yoy-section { margin-top: 30px; width: 100%; }
 .yoy-section .chart-card { border-top: 4px solid #358efb; }
+
+/* Update this in your forecaster.css */
+.insight-box {
+    background: rgba(10, 25, 41, 0.5);
+    border-left: 4px solid #2ecc71; /* Prophet Green */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.insight-box h4 {
+    color: #358efb;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+#model-insight-text {
+    line-height: 1.6;
+    color: #bdc3c7;
+    font-size: 0.95rem;
+}

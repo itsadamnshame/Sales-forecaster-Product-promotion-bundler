@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Analysis</title>
-    <link rel="stylesheet" href="style/global-style.css">
-    <link rel="stylesheet" href="style/marketer.css">
+    <title>Market Analysis | Apriori</title>
+    <link rel="stylesheet" href="../style/global-style.css">
+    <link rel="stylesheet" href="../style/marketer.css">
 </head>
 <body>
     <div class="header">
@@ -18,6 +18,7 @@
             <button id="logout">Logout</button>
         </div>
     </div>
+
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <button id="close-sidebar">×</button>
@@ -26,7 +27,7 @@
             <ul>
                 <li><a href="homepage.html">Dashboard Home</a></li>
                 <li><a href="forecaster.html">Forecaster (Prophet/SARIMA)</a></li>
-                <li><a href="marketer.html">Market Analysis (Apriori)</a></li>
+                <li><a href="marketer.html" class="active">Market Analysis (Apriori)</a></li>
                 <li><a href="influence.html">Influence Factors (Random Forest)</a></li>
             </ul>
         </nav>
@@ -44,7 +45,7 @@
                     <div class="card-header-internal">
                         <div>
                             <h3>Top Product Associations</h3>
-                            <p>Based on 48 months of transaction history</p>
+                            <p id="transaction-count">Analyzing historical transaction history...</p>
                         </div>
                     </div>
                     <div class="card-body-internal">
@@ -55,32 +56,40 @@
                                     <th>Associated Item</th>
                                     <th>Confidence</th>
                                     <th>Lift</th>
+                                    <th>Support</th>
                                 </tr>
                             </thead>
                             <tbody id="apriori-data">
                                 <tr>
-                                    <td>Item 101001</td>
-                                    <td>Item 107037</td>
-                                    <td class="strength-high">84.2%</td>
-                                    <td>2.4x</td>
+                                    <td colspan="5" style="text-align:center;">Awaiting data processing...</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div> 
+
                 <div class="side-panel">
                     <div class="mini-box highlight">
-                        <span class="number">12</span>
+                        <span class="number" id="bundle-count">0</span>
                         <span class="title">Strong Bundles Found</span>
                     </div>
+
                     <div class="insight-box">
                         <h4>Marketing Strategy</h4>
-                        <p>Consider placing <strong>Item 101001</strong> and <strong>Item 107037</strong> on the same shelf to increase cross-sales.</p>
+                        <p id="strategy-text">Identify product pairings to optimize shelf placement and bundling promotions.</p>
                     </div>
                 </div> 
             </div> 
         </div> 
     </div>
-    <script src="session.js"></script>
+
+    <script src="/session.js"></script>
+    <script src="js/marketer-manage.js"></script>
+    <script>
+        // Trigger analysis on load if dataset exists
+        document.addEventListener('DOMContentLoaded', () => {
+            runMarketAnalysis('1770129962785-Sales_2022 to 2025.xlsx');
+        });
+    </script>
 </body>
 </html>

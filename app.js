@@ -33,6 +33,7 @@ for(i=0; i<folders.length; i++){
 app.use('/', utilRouter);
 
 app.use(express.static('public'));
+app.use(express.static('html'));
 app.use('/style', express.static('style'));
 app.listen(PORT, () => {
     console.log(`Server is live at http://localhost:${PORT}`);

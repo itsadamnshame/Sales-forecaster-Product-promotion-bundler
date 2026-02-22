@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/homepage.html', protect, (req, res) => {
-    res.sendFile(process.cwd() + '/homepage.html'); 
+    res.sendFile(process.cwd() + '/html/homepage.html'); 
 });
 
 router.post('/logout', (req, res) => {
@@ -40,15 +40,15 @@ router.get('/upload.html', protect, (req, res) => {
 });
 
 router.get('/forecaster.html', protect, (req, res) => {
-    res.sendFile(process.cwd() + '/forecaster.html'); 
+    res.sendFile(process.cwd() + '/html/forecaster.html'); 
 });
 
 router.get('/marketer.html', protect, (req, res) => {
-    res.sendFile(process.cwd() + '/marketer.html'); 
+    res.sendFile(process.cwd() + '/html/marketer.html'); 
 });
 
 router.get('/influence.html', protect, (req, res) => {
-    res.sendFile(process.cwd() + '/influence.html'); 
+    res.sendFile(process.cwd() + '/html/influence.html'); 
 });
 
 module.exports = router;

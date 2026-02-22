@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forecaster</title>
-    <link rel="stylesheet" href="style/global-style.css">
-    <link rel="stylesheet" href="style/forecaster.css">
+    <title>Forecaster | Sales AI</title>
+    <link rel="stylesheet" href="../style/global-style.css">
+    <link rel="stylesheet" href="../style/forecaster.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="header">
@@ -18,6 +19,7 @@
             <button id="logout">Logout</button>
         </div>
     </div>
+
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <button id="close-sidebar">×</button>
@@ -25,7 +27,7 @@
         <nav class="sidebar-nav">
             <ul>
                 <li><a href="homepage.html">Dashboard Home</a></li>
-                <li><a href="forecaster.html">Forecaster (Prophet/SARIMA)</a></li>
+                <li><a href="forecaster.html" class="active">Forecaster (Prophet/SARIMA)</a></li>
                 <li><a href="marketer.html">Market Analysis (Apriori)</a></li>
                 <li><a href="influence.html">Influence Factors (Random Forest)</a></li>
             </ul>
@@ -38,8 +40,10 @@
             <div class="page-header">
                 <h2 class="summary-title">TIME-SERIES COMPARISON</h2>
                 <div class="model-toggles">
-                    <button class="toggle-btn active" id="btn-sarima">SARIMA</button>
-                    <button class="toggle-btn active" id="btn-prophet">Prophet</button>
+                    <div class="header-actions">
+                        <button id="toggle-sarima" class="btn-primary active">SARIMA</button>
+                        <button id="toggle-prophet" class="btn-primary active">Prophet</button>
+                    </div>
                 </div>
             </div>
 
@@ -47,22 +51,32 @@
                 <div class="chart-card">
                     <div class="card-header-internal">
                         <div>
-                            <h3>7-Day Sales Projection</h3>
-                            <p class="date-range">Feb 08 - Feb 15, 2026</p>
+                            <h3>Sales Projection</h3>
+                            <p class="date-range" id="projection-dates">Initializing AI Analysis...</p>
                         </div>
                     </div>
-                    <div class="card-body-internal">
-                        <canvas id="forecastChart"></canvas>
+                    <div class="card-body-internal" id="projection-graph">
+                        <div class="loading-placeholder">
+                            <div class="spinner"></div>
+                            <p>Analyzing historical data trends...</p>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="metrics-panel">
                     <div class="mini-box highlight">
-                        <span class="number">96.8%</span>
-                        <span class="title">Prophet Accuracy (Winning Model)</span>
+                        <span class="number accuracy-value">--%</span>
+                        <span class="title" id="winning-model-label">Calculating Accuracy</span>
                     </div>
+
+                    <div class="mini-box">
+                        <span class="number" style="font-size: 1.2rem; color: #2ecc71;">Online</span>
+                        <span class="title">System Status</span>
+                    </div>
+
                     <div class="insight-box">
                         <h4>Model Insight</h4>
-                        <p>Prophet is currently outperforming SARIMA by <strong>2.6%</strong> due to better handling of the upcoming holiday weekend.</p>
+                        <p id="model-insight-text">Processing your dataset to identify key seasonal trends.</p>
                     </div>
                 </div>
             </div>
@@ -72,7 +86,7 @@
                     <div class="card-header-internal">
                         <div>
                             <h3>Year-over-Year Performance</h3>
-                            <p class="date-range">February 2026 vs. February 2025</p>
+                            <p class="date-range">Current Forecast vs. Previous Year Actuals</p>
                         </div>
                     </div>
                     <div class="card-body-internal">
@@ -82,6 +96,16 @@
             </div>
         </div>
     </div>
-    <script src="session.js"></script>
+
+    <script src="/session.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/data-manage.js"></script>
+    
+    <script>
+        // Trigger the AI Brain once the page structure is ready
+        window.addEventListener('DOMContentLoaded', () => {
+            updateDashboard('1770129962785-Sales_2022 to 2025.xlsx');
+        });
+    </script>
 </body>
 </html>
