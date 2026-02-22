@@ -5,7 +5,7 @@ const utilRouter = require('./utils_back');
 const app = express();
 const fs = require('fs');
 const path = require('path');
-PORT = 3000;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(
@@ -17,24 +17,26 @@ app.use(
             maxAge: 60000 * 60
         }
 }));
-app.use('/', sessionRouter);
 
-folders = ['uploads'];
-
-for(i=0; i<folders.length; i++){
-    const uploadDir = path.join(__dirname, folders[i]);
-
-    if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir);
-        console.log('Successfully created the /' + folders[i] + ' folder.');
+// Folder creation logic
+const folders = ['uploads'];
+folders.forEach(folder => {
+    const dir = path.join(__dirname, folder);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+        console.log(`Successfully created the /${folder} folder.`);
     }
-}
+});
 
+// ROUTING
+app.use('/', sessionRouter);
 app.use('/', utilRouter);
 
-app.use(express.static('public'));
-app.use(express.static('html'));
-app.use('/style', express.static('style'));
+// Add these to your app.js
+app.use(express.static('public')); // For login.html and session.js
+app.use('/js', express.static(path.join(__dirname, 'html', 'js'))); 
+app.use('/style', express.static(path.join(__dirname, 'html', 'style')));
+
 app.listen(PORT, () => {
     console.log(`Server is live at http://localhost:${PORT}`);
 });

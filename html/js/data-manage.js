@@ -1,62 +1,67 @@
-let yoyChart; 
+/**
+ * DATA-MANAGE.JS
+ * Purpose: Automatically populates any dashboard page using data from LocalStorage.
+ */
 
-async function updateDashboard(filename) {
-    try {
-        // 1. Fetch the pre-computed results instead of running the model
-        const response = await fetch(`http://127.0.0.1:8000/get-results/${filename}`);
-        const cache = await response.json();
-        const data = cache.forecast; // Access the forecast section
+// 1. Main function to update the UI based on the current page's elements
+function populateUI(data) {
+    // --- GLOBAL SUMMARY ELEMENTS (Homepage) ---
+    const accuracyBox = document.getElementById('accuracy');
+    const bundleBox = document.getElementById('bundle');
+    const sellerBox = document.getElementById('seller');
+    const forecastedBox = document.getElementById('forecasted');
 
-        const accuracyEl = document.querySelector('.accuracy-value');
-        const winningLabel = document.getElementById('winning-model-label');
-        const insightEl = document.getElementById('model-insight-text');
-        const graphContainer = document.getElementById('projection-graph');
-        const dateRangeEl = document.getElementById('projection-dates');
+    if (accuracyBox && data.summaries) accuracyBox.innerText = data.summaries.accuracy + "%";
+    if (bundleBox && data.summaries) bundleBox.innerText = data.summaries.top_pair;
+    if (sellerBox && data.summaries) sellerBox.innerText = data.summaries.primary_driver;
+    if (forecastedBox && data.summaries) {
+        const numSpan = forecastedBox.querySelector('.number');
+        if (numSpan) numSpan.innerText = data.summaries.total_forecast;
+    }
 
-        // 2. Update the UI with cached data
-        if (dateRangeEl && data.yoy.labels.length > 0) {
-            dateRangeEl.innerText = `${data.yoy.labels[0]} - ${data.yoy.labels[data.yoy.labels.length - 1]}, 2026`;
-        }
+    // --- FORECASTER PAGE ELEMENTS ---
+    const graphContainer = document.getElementById('projection-graph');
+    const accuracyValue = document.querySelector('.accuracy-value');
+    
+    if (accuracyValue && data.forecast) accuracyValue.innerText = data.forecast.accuracy;
+    
+    if (graphContainer && data.forecast) {
+        graphContainer.innerHTML = `<iframe id="forecast-iframe" src="${data.forecast.graph}" style="width:100%; height:500px; border:none;"></iframe>`;
+        // Setup the SARIMA/Prophet toggles if they exist
+        if (typeof setupToggles === "function") setupToggles();
+    }
 
-        if (winningLabel) {
-            winningLabel.innerHTML = `Winning Model: <strong style="color: #2ecc71;">Prophet AI</strong>`;
-        }
-
-        if (accuracyEl) accuracyEl.innerText = data.accuracy;
-
-        if (insightEl) {
-            const isIncreasing = data.yoy.current[0] > data.yoy.previous[0];
-            insightEl.innerHTML = `
-                <div style="margin-bottom: 10px;">
-                    <strong>Performance Analysis:</strong><br>
-                    Prophet AI successfully identified complex seasonal patterns across the historical dataset.
-                </div>
-                <div>
-                    <strong>Market Trend:</strong><br>
-                    Current forecasts indicate a <strong>${isIncreasing ? 'growth' : 'stabilization'}</strong> 
-                    trend compared to the previous period.
-                </div>
-            `;
-        }
-        
-        if (graphContainer) {
-            graphContainer.innerHTML = `<iframe id="forecast-iframe" src="${data.graph}" style="width:100%; height:500px; border:none;"></iframe>`;
-            setupToggles();
-        }
-
-        if (typeof updateYoYChart === "function") {
-            updateYoYChart(data.yoy);
-        }
-    } catch (error) {
-        console.error("Dashboard cache load failed:", error);
+    // Update Chart.js Year-over-Year if the function is available
+    if (window.updateYoYChart && data.forecast && data.forecast.yoy) {
+        window.updateYoYChart(data.forecast.yoy);
     }
 }
 
+// 2. Logic to load data from browser memory
+function loadDashboard() {
+    const rawData = localStorage.getItem("masterAIData");
+    
+    if (!rawData) {
+        console.warn("AI data not ready yet... redirected to upload or showing placeholders.");
+        return;
+    }
+
+    try {
+        const allData = JSON.parse(rawData);
+        populateUI(allData);
+        console.log("Dashboard populated successfully from LocalStorage.");
+    } catch (err) {
+        console.error("Failed to parse AI data:", err);
+    }
+}
+
+// 3. Helper for the Forecaster Toggles
 function setupToggles() {
     const sarimaBtn = document.getElementById('toggle-sarima');
     const prophetBtn = document.getElementById('toggle-prophet');
     const iframe = document.getElementById('forecast-iframe');
-    if (!iframe) return;
+    
+    if (!iframe || !sarimaBtn || !prophetBtn) return;
 
     const sendToggle = (btn, traceName) => {
         btn.onclick = () => {
@@ -69,6 +74,10 @@ function setupToggles() {
             }, '*');
         };
     };
+
     sendToggle(sarimaBtn, 'Statistical Baseline (SARIMA)');
     sendToggle(prophetBtn, 'AI Forecast (Prophet)');
 }
+
+// Initialize when the DOM is ready
+document.addEventListener('DOMContentLoaded', loadDashboard);
