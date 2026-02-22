@@ -36,7 +36,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/upload.html', protect, (req, res) => {
-    res.sendFile(process.cwd() + '/upload.html'); 
+    res.sendFile(process.cwd() + '/html/upload.html'); 
 });
 
 router.get('/forecaster.html', protect, (req, res) => {

@@ -3,21 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Homepage</title>
+        <title>Homepage - AI Dashboard</title>
         <link rel="stylesheet" href="../style/global-style.css">
         <link rel="stylesheet" href="../style/home.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
+        <div id="loading-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 41, 0.95); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: sans-serif; text-align: center;">
+            <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 70px; height: 70px; animation: spin 1.5s linear infinite; margin-bottom: 25px;"></div>
+            <h2 id="loading-text" style="letter-spacing: 2px;">AI MODELS ARE COMPUTING...</h2>
+            <p style="color: #bdc3c7; max-width: 400px; line-height: 1.6;">Please wait while we process 126,309+ historical records for Forecasting, Market Bundling, and Influence Analysis.</p>
+        </div>
+
         <div class="header">
             <div class="header-left">
                 <button id="menu-toggle">☰</button>
-                <p>PROGRAM NAME IDK</p>
+                <p>SALES ANALYTICS SYSTEM</p>
             </div>
             <div class="header-right">
                 <span class="user-name">EMPLOYEE NAME (ADMIN)</span>
                 <button id="logout">Logout</button>
             </div>
         </div>
+
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <button id="close-sidebar">×</button>
@@ -31,34 +39,47 @@
                 </ul>
             </nav>
         </div>
+
         <div id="overlay" class="overlay"></div>
+
         <div class="summary-container">
             <h2 class="summary-title">MODELS' SUMMARIES</h2>
             <div class="summary-box">
                 <p class="mini-box" id="forecasted">
-                    <span class='number'>10000</span>
-                    <span class='title'>Total Forecasted Sales (FEBRUARY)</span>
+                    <span class='number'>- - -</span>
+                    <span class='title'>Total Forecasted Sales (Next 4 Weeks)</span>
                 </p>
                 <p class="mini-box" id="accuracy">
-                    <span class='number'>97.34%</span>
-                    <span class='title'>Model Accuracy</span>
+                    <span class='number'>- - %</span>
+                    <span class='title'>Prophet Model Accuracy</span>
                 </p>
                 <p class="mini-box" id="bundle">
-                    <span class='number'>item 101001 & item 107037</span>
+                    <span class='number'>Analyzing...</span>
                     <span class='title'>Top Selling Pair (Apriori)</span>
                 </p>
                 <p class="mini-box" id="seller">
-                    <span class='number'>item 101001</span>
+                    <span class='number'>Calculating...</span>
                     <span class='title'>Primary Sales Driver (Random Forest)</span>
                 </p>
             </div>
         </div>
-        <template><a href="upload.html">Upload a dataset</a></template>
-        <!-- <p id="demo"></p>
-        <script>
-            const id = sessionStorage.getItem('id');
-            document.getElementById("demo").innerHTML = "<h2>Hello " + id + " World</h2>";
-        </script> -->
+
+        <div style="padding: 20px; text-align: center;">
+            <a href="upload.html" class="upload-link" style="color: #3498db; text-decoration: none; font-weight: bold;">+ Upload a new dataset</a>
+        </div>
+
+        <style>
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            
+            .mini-box .number { font-size: 1.4rem; font-weight: bold; color: #2ecc71; display: block; }
+            .mini-box .title { font-size: 0.85rem; color: #7f8c8d; }
+            
+            #loading-overlay {
+                display: none; /* Controlled by util.js during startModel click */
+            }
+        </style>
+
         <script src="/session.js"></script>
+        <script src="js/home-logic.js"></script>
     </body>
 </html>
