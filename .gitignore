@@ -12,7 +12,7 @@ uploads/
 __pycache__/
 
 # Ignore forecast files
-py_export/
+python/exports/
 
 # Ignore caches
 cache/

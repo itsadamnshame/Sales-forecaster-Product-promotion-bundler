@@ -6,6 +6,17 @@
   "scripts": {
     "devStart": "nodemon app.js"
   },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": ["app.js", "session_back.js", "utils_back.js"],
+    "ignore": [
+      "uploads/*",
+      "html/js/masterAIData.json",
+      "*.xlsx",
+      "*.xls"
+    ],
+    "delay": "2500"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/itsadamnshame/Sales-forecaster-Product-promotion-bundler.git"

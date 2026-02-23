@@ -25,7 +25,10 @@ router.post('/upload', uploadProcessor.single('datafile'), (req, res) => {
         const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
         console.log("Success! Data preview:", data.slice(0, 2));
-        res.json({ message: 'Excel file saved and read successfully' });
+        res.json({ 
+            message: 'Excel file saved and read successfully', 
+            filename: req.file.filename // This is the key piece you are missing!
+        });
     } catch (err) {
         console.error("Server Error during Excel processing:", err.message);
         res.status(500).json({ error: 'Failed to process Excel file structure.' });

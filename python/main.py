@@ -23,20 +23,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Directory Setup aligned with your updated structure
 UPLOADS_DIR = Path(__file__).parent.parent / "uploads"
-CACHE_DIR = Path(__file__).parent.parent / "cache"
-CACHE_DIR.mkdir(exist_ok=True)
+CACHE_DIR = Path(__file__).parent / "exports" / "temp"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 @app.get("/process-all/{filename}")
 def process_all(filename: str):
     file_path = UPLOADS_DIR / filename
-    cache_path = CACHE_DIR / f"{filename}.json"
+    cache_path = CACHE_DIR / f"optima_{filename}.json"
     
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="File not found.")
 
     try:
-        # 1. Unified Load
+        # 1. Unified Load and Data Cleaning
         raw_data = load_and_clean(file_path)
         
         # --- MODEL A: FORECASTER (Prophet/SARIMA) ---
@@ -52,6 +53,7 @@ def process_all(filename: str):
         y_true = weekly_data['y'].tail(4).values
         y_pred = forecast['yhat'].iloc[-8:-4].values
         acc = max(0, 100 - (mean_absolute_percentage_error(y_true, y_pred) * 100))
+        
         graph_loc = generate_visuals(weekly_data, sarima_pred, forecast.tail(4), len(raw_data))
 
         # --- MODEL B: MARKET ANALYSIS (Apriori) ---
@@ -79,31 +81,41 @@ def process_all(filename: str):
         influence_results = [{"factor": n, "score": round(s * 100, 1)} 
                             for n, s in zip(['Warehouse', 'Price', 'Month', 'Day'], rf.feature_importances_)]
 
-        # --- SAVE TO CACHE ---
+        # --- 2. STRUCTURE DATA FOR FRONTEND (OptimaModel Branding) ---
         final_data = {
-            "forecast": {
-                "accuracy": f"{acc:.1f}%", "graph": graph_loc,
-                "yoy": {"labels": forecast.tail(4)['ds'].dt.strftime('%b %d').tolist(),
-                        "current": forecast.tail(4)['yhat'].round(0).tolist(),
-                        "previous": weekly_data['y'].tail(4).tolist()}
+            "optima_forecast": {
+                "accuracy": f"{acc:.1f}%", 
+                "graph": graph_loc,
+                "yoy": {
+                    "labels": forecast.tail(4)['ds'].dt.strftime('%b %d').tolist(),
+                    "current": forecast.tail(4)['yhat'].round(0).tolist(),
+                    "previous": weekly_data['y'].tail(4).tolist()
+                }
             },
-            "market": {"bundles": bundles_list, "total": len(basket)},
-            "influence": {"top": sorted(influence_results, key=lambda x: x['score'], reverse=True)[0]['factor'],
-                          "list": sorted(influence_results, key=lambda x: x['score'], reverse=True)}
+            "optima_market": {
+                "bundles": bundles_list, 
+                "total": len(basket)
+            },
+            "optima_influence": {
+                "top": sorted(influence_results, key=lambda x: x['score'], reverse=True)[0]['factor'],
+                "list": sorted(influence_results, key=lambda x: x['score'], reverse=True)
+            }
         }
 
+        # --- 3. SAVE AND RETURN ---
         with open(cache_path, 'w') as f:
             json.dump(final_data, f)
             
-        return {"status": "Complete", "message": "All models pre-computed."}
+        return final_data 
+
     except Exception as e:
+        print(f"Error during OptimaModel processing: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Simplified endpoints that only read the cache
 @app.get("/get-results/{filename}")
 def get_results(filename: str):
-    cache_path = CACHE_DIR / f"{filename}.json"
+    cache_path = CACHE_DIR / f"optima_{filename}.json"
     if not cache_path.exists():
-        raise HTTPException(status_code=404, detail="Analysis not ready.")
+        raise HTTPException(status_code=404, detail="OptimaModel analysis results not found.")
     with open(cache_path, 'r') as f:
         return json.load(f)
