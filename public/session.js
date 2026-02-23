@@ -54,7 +54,6 @@ if (menuBtn && sidebar && closeBtn && overlay) {
 // public/session.js
 const logoutBtn = document.getElementById('logout');
 
-// public/session.js
 if (logoutBtn) {
     logoutBtn.onclick = async () => {
         const response = await fetch('/logout', { method: 'POST' });
@@ -63,10 +62,9 @@ if (logoutBtn) {
             // 1. Clear the session flag
             sessionStorage.removeItem('id');
             
-            // 2. CRITICAL: Clear the AI data so the next user starts fresh
+            // 2. CRITICAL: Clear the OptimaModel data so the next user starts fresh
+            localStorage.removeItem('OptimaData');
             localStorage.removeItem('uploadedFilename');
-            // If you save other results individually, clear them too:
-            // localStorage.clear(); // Use this to wipe everything at once
             
             window.location.href = "login.html";
         }

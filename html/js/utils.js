@@ -1,6 +1,6 @@
 /**
  * UTILS.JS
- * Purpose: Handles Excel uploads and triggers the Master AI computation.
+ * Purpose: Handles Excel uploads and triggers the OptimaModel computation.
  * Strategy: Saves all model results to localStorage for instant page navigation.
  */
 
@@ -32,10 +32,10 @@ if (uploadForm) {
                 
                 // 3. Inject the "Start Model" button into the runPy div
                 const target = document.getElementById('runPy');
-                target.innerHTML = `<button id="toPy" class="btn-success">START THE MODEL</button>`;
+                target.innerHTML = `<button id="toPy" class="btn-success">START OPTIMAMODEL</button>`;
                 
-                // 4. Attach the Master AI trigger to the new button
-                document.getElementById('toPy').onclick = () => runMasterAI(result.filename);
+                // 4. Attach the Optima trigger to the new button
+                document.getElementById('toPy').onclick = () => runOptimaModel(result.filename);
                 
                 if (uploadBtn) uploadBtn.innerText = "UPLOAD SUCCESSFUL";
             } else {
@@ -53,47 +53,47 @@ if (uploadForm) {
 }
 
 /**
- * Triggers the Python FastAPI Master Endpoint
+ * Triggers the Python FastAPI Optima Endpoint
  * Saves all results (Forecaster, Marketer, Influence) to localStorage at once.
  */
-async function runMasterAI(filename) {
+async function runOptimaModel(filename) {
     const overlay = document.getElementById('loading-overlay');
     const btn = document.getElementById('toPy');
 
     // Show the full-screen AI computation overlay
     if (overlay) overlay.style.display = 'flex';
     if (btn) {
-        btn.innerText = "AI PROCESSING...";
+        btn.innerText = "OPTIMAMODEL PROCESSING...";
         btn.disabled = true;
     }
 
     try {
-        console.log("Requesting Master AI computation for:", filename);
+        console.log("Requesting OptimaModel computation for:", filename);
         
-        // 5. Call the FastAPI Master Endpoint on port 8000
+        // 5. Call the FastAPI Endpoint on port 8000
         const res = await fetch(`http://127.0.0.1:8000/process-all/${filename}`);
         const allResults = await res.json();
         
         if (res.ok) {
             // 6. SAVE ALL MODEL DATA TO LOCALSTORAGE
-            // This allows all other pages to load data instantly without more fetch calls
-            localStorage.setItem("masterAIData", JSON.stringify(allResults));
+            // THE FIX: Saved under the new branded key
+            localStorage.setItem("OptimaData", JSON.stringify(allResults));
             
-            console.log("AI Analysis Complete. Data saved to browser memory.");
+            console.log("Optima Analysis Complete. Data saved to browser memory.");
             
             // 7. Final Redirect to the main dashboard
             window.location.href = "homepage.html";
         } else {
-            throw new Error(allResults.detail || "AI Processing Failed");
+            throw new Error(allResults.detail || "Optima Processing Failed");
         }
     } catch (err) {
-        console.error("Master AI Error:", err);
+        console.error("OptimaModel Error:", err);
         alert("Failed to process data: " + err.message);
         
         // Hide overlay and reset button if something goes wrong
         if (overlay) overlay.style.display = 'none';
         if (btn) {
-            btn.innerText = "START THE MODEL";
+            btn.innerText = "START OPTIMAMODEL";
             btn.disabled = false;
         }
     }
