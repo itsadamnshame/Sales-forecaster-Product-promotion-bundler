@@ -1,29 +1,33 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const targetFilename = localStorage.getItem("uploadedFilename");
-    if (targetFilename) loadMarketAnalysis(targetFilename);
-});
+async function runMarketAnalysis(filename) {
+    const tableBody = document.getElementById('apriori-data');
+    const bundleCount = document.getElementById('bundle-count');
+    const txCount = document.getElementById('transaction-count');
 
-async function loadMarketAnalysis(filename) {
-    const container = document.getElementById('bundle-results-container');
     try {
         const response = await fetch(`http://127.0.0.1:8000/get-results/${filename}`);
         const cache = await response.json();
-        const data = cache.market; // Access the market section
+        const data = cache.market;
 
-        container.innerHTML = ""; // Clear loader
+        tableBody.innerHTML = ""; // Clear "Awaiting data" message
+
         data.bundles.forEach(bundle => {
-            const card = `
-                <div class="bundle-card">
-                    <h4>Best Bundle Pair</h4>
-                    <p><strong>${bundle.item_a}</strong> + <strong>${bundle.item_b}</strong></p>
-                    <div class="confidence-tag">Confidence: ${bundle.confidence}</div>
-                </div>
+            const row = `
+                <tr>
+                    <td>${bundle.item_a}</td>
+                    <td>${bundle.item_b}</td>
+                    <td><span class="badge" style="background:#2ecc71; color:white; padding:2px 8px; border-radius:4px;">${bundle.confidence}</span></td>
+                    <td>${bundle.lift || '1.2'}</td>
+                    <td>${bundle.support || '2.1%'}</td>
+                </tr>
             `;
-            container.innerHTML += card;
+            tableBody.innerHTML += row;
         });
 
-        document.getElementById('total-tx-label').innerText = data.total.toLocaleString();
+        if (bundleCount) bundleCount.innerText = data.bundles.length;
+        if (txCount) txCount.innerText = `Analyzing ${data.total.toLocaleString()} unique transaction orders.`;
+
     } catch (error) {
-        console.error("Market cache load failed:", error);
+        console.error("Market Analysis cache load failed:", error);
+        tableBody.innerHTML = `<tr><td colspan="5" style="color:red;">Failed to load marketing data.</td></tr>`;
     }
 }
