@@ -8,7 +8,7 @@ async function runMarketAnalysis(filename) {
         const cache = await response.json();
         const data = cache.market;
 
-        tableBody.innerHTML = ""; // Clear "Awaiting data" message
+        tableBody.innerHTML = "";
 
         data.bundles.forEach(bundle => {
             const row = `

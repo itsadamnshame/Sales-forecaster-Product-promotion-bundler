@@ -1,6 +1,28 @@
 .analysis-grid {
     display: grid;
     grid-template-columns: 3fr 1fr;
-    gap: 30px;
+    gap: 24px;
 }
-/* No other styles needed, Global handles the cards */
+
+.chart-card {
+    border-top: 4px solid var(--optima-blue);
+}
+
+#top-influence-driver {
+    color: #9fe870 !important;
+    line-height: 1.15;
+}
+
+#dynamic-insight-text {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+#importanceChart {
+    max-height: 320px;
+}
+
+@media (max-width: 1000px) {
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+}

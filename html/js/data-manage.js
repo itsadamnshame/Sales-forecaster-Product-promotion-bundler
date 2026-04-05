@@ -1,13 +1,7 @@
-/**
- * DATA-MANAGE.JS
- * Purpose: Populates all dashboard pages (Home, Forecaster, Marketer, Influence).
- * Strategy: Reads OptimaModel results from localStorage and updates the DOM dynamically.
- */
-
 function populateUI(data) {
     console.log("OptimaModel Data Found. Populating UI...", data);
 
-    // --- 1. GLOBAL & HOMEPAGE ELEMENTS ---
+    // GLOBAL & HOMEPAGE ELEMENTS
     const accuracyBox = document.getElementById('accuracy');
     const bundleBox = document.getElementById('bundle');
     const sellerBox = document.getElementById('seller');
@@ -38,7 +32,7 @@ function populateUI(data) {
         }
     }
 
-    // --- 2. FORECASTER PAGE (Prophet/SARIMA) ---
+    // FORECASTER PAGE (Prophet/SARIMA)
     const graphContainer = document.getElementById('projection-graph');
     const accuracyValue = document.querySelector('.accuracy-value');
     const insightText = document.getElementById('model-insight-text');
@@ -60,13 +54,13 @@ function populateUI(data) {
         }
     }
 
-    // --- 3. MARKET ANALYSIS PAGE (Apriori Table) ---
+    // ARKET ANALYSIS PAGE (Apriori Table)
     const bundleTableBody = document.getElementById('apriori-data');
     const transactionCount = document.getElementById('transaction-count');
     const bundleCount = document.getElementById('bundle-count');
 
     if (bundleTableBody && data.optima_market) {
-        bundleTableBody.innerHTML = ""; // Clear loading state
+        bundleTableBody.innerHTML = "";
         
         if (transactionCount) transactionCount.innerText = `Analyzed ${data.optima_market.total.toLocaleString()} transactions`;
         if (bundleCount) bundleCount.innerText = data.optima_market.bundles.length;
@@ -89,7 +83,7 @@ function populateUI(data) {
         });
     }
 
-    // --- 4. INFLUENCE FACTORS PAGE (Random Forest) ---
+    // INFLUENCE FACTORS PAGE (Random Forest)
     const topDriver = document.getElementById('top-influence-driver');
     const dynamicInsight = document.getElementById('dynamic-insight-text');
     const chartCanvas = document.getElementById('importanceChart');
@@ -113,18 +107,18 @@ function populateUI(data) {
                     datasets: [{
                         label: 'Influence Score (%)',
                         data: scores,
-                        backgroundColor: 'rgba(46, 204, 113, 0.7)', // Optima green
+                        backgroundColor: 'rgba(46, 204, 113, 0.7)',
                         borderColor: '#2ecc71',
                         borderWidth: 1,
                         borderRadius: 4
                     }]
                 },
                 options: {
-                    indexAxis: 'y', // Makes the bar chart horizontal
+                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false } // Hides the unnecessary legend
+                        legend: { display: false }
                     },
                     scales: {
                         x: { 
@@ -144,11 +138,7 @@ function populateUI(data) {
     }
 }
 
-/**
- * Loads the master JSON string and attempts to parse it.
- */
 function loadDashboard() {
-    // Look for the newly branded OptimaData key
     const rawData = localStorage.getItem("OptimaData");
     
     if (!rawData) {
@@ -164,9 +154,6 @@ function loadDashboard() {
     }
 }
 
-/**
- * Handles the SARIMA/Prophet visibility toggles in the Forecaster Iframe.
- */
 function setupToggles() {
     const sarimaBtn = document.getElementById('toggle-sarima');
     const prophetBtn = document.getElementById('toggle-prophet');

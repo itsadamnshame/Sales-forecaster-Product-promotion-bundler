@@ -1,15 +1,99 @@
 .analysis-grid {
     display: grid;
     grid-template-columns: 3fr 1fr;
-    gap: 30px;
+    gap: 24px;
 }
 
-.rules-table { width: 100%; border-collapse: collapse; }
-.rules-table th { text-align: left; padding: 12px; border-bottom: 2px solid #eee; font-size: 0.9rem; color: #666; }
-.rules-table td { padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+.rules-card {
+    border-top: 4px solid var(--optima-blue);
+}
 
-.strength-high { color: #27ae60; font-weight: bold; }
-.lift-badge { padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
-.lift-badge.high { background: rgba(39, 174, 96, 0.1); color: #27ae60; border: 1px solid #27ae60; }
-.confidence-bar { height: 8px; background: #27ae60; border-radius: 4px; }
-.confidence-bar-container { display: flex; align-items: center; gap: 10px; }
+.rules-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rules-table th {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 2px solid rgba(17, 44, 79, 0.08);
+    font-size: 0.78rem;
+    color: var(--optima-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.rules-table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid rgba(17, 44, 79, 0.08);
+    font-size: 0.95rem;
+    color: var(--optima-text);
+    vertical-align: middle;
+}
+
+.rules-table tbody tr:hover {
+    background: rgba(53, 142, 251, 0.05);
+}
+
+.strength-high {
+    color: #27ae60;
+    font-weight: 700;
+}
+
+.lift-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.lift-badge.high {
+    background: rgba(39, 174, 96, 0.12);
+    color: #1f9156;
+    border: 1px solid rgba(39, 174, 96, 0.22);
+}
+
+.confidence-bar {
+    height: 10px;
+    min-width: 90px;
+    background: linear-gradient(90deg, #69bcff 0%, #2ecc71 100%);
+    border-radius: 999px;
+}
+
+.confidence-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 1000px) {
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .rules-table thead {
+        display: none;
+    }
+
+    .rules-table,
+    .rules-table tbody,
+    .rules-table tr,
+    .rules-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .rules-table tr {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(17, 44, 79, 0.08);
+    }
+
+    .rules-table td {
+        border: none;
+        padding: 8px 0;
+    }
+}

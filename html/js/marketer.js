@@ -28,9 +28,7 @@ async function runMarketAnalysis(filename) {
     }
 }
 
-// At the bottom of marketer.html
 document.addEventListener('DOMContentLoaded', () => {
-    // We add a small 500ms delay to make sure the UI is ready
     setTimeout(() => {
         runMarketAnalysis('1770129962785-Sales_2022 to 2025.xlsx');
     }, 500);

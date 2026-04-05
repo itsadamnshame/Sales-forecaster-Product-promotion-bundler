@@ -57,7 +57,7 @@ def process_all(filename: str):
         graph_loc = generate_visuals(weekly_data, sarima_pred, forecast.tail(4), len(raw_data))
 
         # --- MODEL B: MARKET ANALYSIS (Apriori) ---
-        basket = (raw_data.groupby(['OrderID', 'ItemDescription'])['Quantity']
+        basket = (raw_data.groupby(['OrderID', 'ItemCode'])['Quantity']
                   .sum().unstack().reset_index().fillna(0).set_index('OrderID'))
         basket_sets = basket.map(lambda x: True if x >= 1 else False)
         freq_sets = apriori(basket_sets, min_support=0.01, use_colnames=True)
